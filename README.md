@@ -1,7 +1,7 @@
 # plugin
 自己做的一些插件
 ----------------
-## fileupload
+## 1. fileupload
 #### 文件上传，基于Node(Express框架)，支持多文件上传，文件类型限定,使用了formidable
 #### 使用步骤：
 1. 初始化项目环境
