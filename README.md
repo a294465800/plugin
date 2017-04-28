@@ -14,3 +14,25 @@ npm install --save express
 npm install --save swig
 npm i -S --save formidable
 ```
+3. 目录结构
+```
+fileupload/
+├── node_modules/
+│   ├── 一些依赖
+│   └── ···
+├── public/
+|     ├── css/
+|     |   └──form.css
+|     ├── image/
+|     │   └── 存放上传的文件
+|     └── js/
+|         └── action.js
+├── routers/
+|   └── index.js
+├── views/
+|   ├── error.html
+|   ├── index.html
+|   └── success.html
+├── app.js      
+└── package.json
+```
