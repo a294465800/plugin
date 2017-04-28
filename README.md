@@ -36,3 +36,5 @@ fileupload/
 ├── app.js      
 └── package.json
 ```
+4. app.js是启动文件
+5. 其余文件中均有注释，image是存放上传文件的文件夹，上传文件的文件夹一定要先创建。
