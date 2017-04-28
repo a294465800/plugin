@@ -38,3 +38,4 @@ fileupload/
 ```
 4. app.js是启动文件
 5. 其余文件中均有注释，image是存放上传文件的文件夹，上传文件的文件夹一定要先创建。
+6. [node-formidable源码](https://github.com/felixge/node-formidable)         [Node.js的Formidable模块的使用--中文](http://www.cnblogs.com/yuanke/archive/2016/02/26/5221853.html)
