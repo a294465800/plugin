@@ -89,7 +89,7 @@ $(function () {
 		Array.prototype.push.apply(files, file_info.files);
 
 		//数组筛选，除掉重复的文件
-		var tmp = [];
+		var tmp;
 		tmp = files;
 		for(var i = 0, a = files.length; i < a; i++){
 			for(var j = i+1; j < files.length; j++){
@@ -106,7 +106,6 @@ $(function () {
 			}
 		}
 
-		console.log(files);
 		//打印文件列表
 		for(var file in files){
 			html += '<li><p>' + files[file].name + '</p><span class="file_cancel">取消</span><br><progress class="file_load" value="0" max="100">0</progress><span class="percent">0</span></li>';

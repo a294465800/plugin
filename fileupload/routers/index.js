@@ -6,7 +6,7 @@ var express = require('express'),
 	router = express.Router(),
 	formidable = require('formidable'),
 	fs = require('fs'),
-	file_path = 'public/image/';
+	file_path = 'public/images/';
 
 //返回给html的通用数据
 var data;
