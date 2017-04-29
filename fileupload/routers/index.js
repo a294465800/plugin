@@ -59,12 +59,13 @@ router.post('/',function (req, res) {
 			//对单一文件进行重命名
 			fs.renameSync(files.files.path, form.uploadDir + files.files.name);  //重命名*/
 			}
-		});
-		form.on('end', function() {
-			data.message = '上传成功';
-			data.url = '/success';
-			res.json(data);
-		});
+		data.file_num = files.files.length || 1;
+	});
+
+	form.on('end', function() {
+		data.message = '个文件上传成功';
+		res.json(data);
+	});
 });
 
 

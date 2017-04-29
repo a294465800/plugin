@@ -1,7 +1,6 @@
 /**
  * Created by Administrator on 2017/4/28.
  */
-var a = 0;
 $(function () {
 	var btnSub = $('#btnSub'),
 		errorTip = $('#errorTip'),
@@ -10,11 +9,10 @@ $(function () {
 		file_list = document.getElementById('file_list'),
 		file_num = $('#file_num');
 	var files = [];
-	var fd = new FormData();
 
 	btnSub.on('click',function(){
 		var length = file_info.files.length;
-
+		var fd = new FormData();
 		errorTip.css('display','none');
 		typeTip.css('display','none');
 
@@ -24,15 +22,18 @@ $(function () {
 			return false;
 		}
 		//获取文件后缀名
-		for(var i = 0;i < length; i++){
+		/*for(var i = 0;i < length; i++){
 			var extName = file_info.files[i].name.substring(file_info.files[i].name.lastIndexOf('.'),file_info.files[i].name.length).toLowerCase();
 			if(extName !== '.png' && extName !== '.jpg'){
 				typeTip.css('display','block');
 				return false;
 			}
-		}
+		}*/
+
+		//利用FormData对象，存放files
 		for (var i = 0, j = files.length; i<j;i++){
-			fd.append('files',files[i]);
+			//第一个参数是提交后的数据名，第二个参数是要接入的数据
+			fd.append('files', files[i]);
 		}
 
 		var xhrOnProgress = function(fun) {
@@ -70,24 +71,43 @@ $(function () {
 						cancel.off();
 						files = [];
 					}
-				})
+				}),
+			success: function (data) {
+				console.log(files);
+				file_num.html(data.file_num + data.message);
+			}
 		});
+		//阻止默认表单提交
 		return false;
 	});
 	$('#file-info').change(function () {
+		//隐藏错误提示
 		errorTip.css('display','none');
 		typeTip.css('display','none');
 		file_list.innerHTML = '';
-
 		var html = '';
+		//默认的文件files不能操作（没有权限），只能赋值给新数组，对新数组进行操作
 		Array.prototype.push.apply(files, file_info.files);
-		for(var file in files){
-			html += '<li><p>' + files[file].name + '</p><span class="file_cancel">取消</span><br><progress class="file_load" value="0" max="100">0</progress><span class="percent">0</span></li>';
+
+		//数组筛选，除掉重复的文件
+		var tmp = [];
+		for(var i in files){
+			tmp[files[i].name] = 1;
+		}
+		var tmp2 = [];
+		for(var j in tmp){
+			tmp2.push(j);
+		}
+
+		//打印文件列表
+		for(var file in tmp2){
+			html += '<li><p>' + tmp2[file] + '</p><span class="file_cancel">取消</span><br><progress class="file_load" value="0" max="100">0</progress><span class="percent">0</span></li>';
 		}
 		file_list.innerHTML = html;
 		$('#file-info').css('color',"#fff");
-		file_num.html('你已经选择了' + files.length + '个文件');
+		file_num.html('你已经选择了' + tmp2.length + '个文件');
 
+		//添加取消按钮事件
 		$('.file_cancel').on('click',function () {
 			var $this_li = $(this).closest('li');
 			var name = $this_li.find('p').text();
@@ -95,6 +115,7 @@ $(function () {
 			files = files.filter(function (file) {
 				return file.name !== name;
 			});
+			file_num.html('你已经选择了' + files.length + '个文件');
 		});
 	});
 });
