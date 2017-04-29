@@ -24,6 +24,12 @@ router.get('/',function (req, res) {
 	res.render('index');
 });
 
+router.get('/success',function (req, res) {
+	data = req.body;
+	console.log(data);
+	res.render('success',data);
+});
+
 /*
 * 文件上传过程处理
 * */
@@ -41,25 +47,26 @@ router.post('/',function (req, res) {
 			res.render('error',data);
 			return ;
 		}
-
 		/*
 		 * 保留文件原来名字
 		 * */
-		if(files.fileInfo.length > 1){
+		if(files.files.length > 1){
 			//如果同时上传多个文件，返回的是数组，对所有数组中的文件重命名
-			for(var i = 0; i < files.fileInfo.length;i++){
-				fs.renameSync(files.fileInfo[i].path, form.uploadDir + files.fileInfo[i].name);  //重命名*/
+			for(var i = 0; i < files.files.length;i++){
+				fs.renameSync(files.files[i].path, form.uploadDir + files.files[i].name);  //重命名*/
 			}
 		}else{
 			//对单一文件进行重命名
-			fs.renameSync(files.fileInfo.path, form.uploadDir + files.fileInfo.name);  //重命名*/
+			fs.renameSync(files.files.path, form.uploadDir + files.files.name);  //重命名*/
 			}
 		});
 		form.on('end', function() {
 			data.message = '上传成功';
-			data.url = '/';
-			res.render('success', data);
+			data.url = '/success';
+			res.json(data);
 		});
 });
+
+
 
 module.exports = router;

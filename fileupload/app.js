@@ -9,12 +9,12 @@ var express = require('express');
 var swig = require('swig');
 
 //加载body-parser，用于处理post数据
-var bodyParsrer = require('body-parser');
+var bodyParser = require('body-parser');
 
 //创建app应用 => NodeJs Http.createServer();
 var app = express();
 
-app.use(bodyParsrer.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: true}));
 
 /*
 * 设置静态文件托管
@@ -42,6 +42,7 @@ app.set('view engine','html');
 * 划分路由
 * */
 app.use('/',require('./routers/index'));
+app.use('/api',require('./routers/ajax'));
 
 //监听http请求
 app.listen(8083);

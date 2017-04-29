@@ -8,5 +8,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="express-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="swig-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="formidable-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="bootstrap-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="jQuery-2.0.0" level="application" />
   </component>
 </module>
