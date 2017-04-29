@@ -31,7 +31,7 @@ $(function () {
 		}*/
 
 		//利用FormData对象，存放files
-		for (var i = 0, j = files.length; i<j;i++){
+		for (var i = 0, j = files.length; i < j;i++){
 			//第一个参数是提交后的数据名，第二个参数是要接入的数据
 			fd.append('files', files[i]);
 		}
@@ -73,7 +73,6 @@ $(function () {
 					}
 				}),
 			success: function (data) {
-				console.log(files);
 				file_num.html(data.file_num + data.message);
 			}
 		});
@@ -91,21 +90,30 @@ $(function () {
 
 		//数组筛选，除掉重复的文件
 		var tmp = [];
-		for(var i in files){
-			tmp[files[i].name] = 1;
+		tmp = files;
+		for(var i = 0, a = files.length; i < a; i++){
+			for(var j = i+1; j < files.length; j++){
+				if(tmp[i].name === files[j].name){
+					tmp[i] = '';
+				}
+			}
 		}
-		var tmp2 = [];
-		for(var j in tmp){
-			tmp2.push(j);
+		files = [];
+		for(var i = 0, j = 0; i < tmp.length; i++){
+			if(tmp[i]){
+				files[j] = tmp[i];
+				j++;
+			}
 		}
 
+		console.log(files);
 		//打印文件列表
-		for(var file in tmp2){
-			html += '<li><p>' + tmp2[file] + '</p><span class="file_cancel">取消</span><br><progress class="file_load" value="0" max="100">0</progress><span class="percent">0</span></li>';
+		for(var file in files){
+			html += '<li><p>' + files[file].name + '</p><span class="file_cancel">取消</span><br><progress class="file_load" value="0" max="100">0</progress><span class="percent">0</span></li>';
 		}
 		file_list.innerHTML = html;
 		$('#file-info').css('color',"#fff");
-		file_num.html('你已经选择了' + tmp2.length + '个文件');
+		file_num.html('你已经选择了' + files.length + '个文件');
 
 		//添加取消按钮事件
 		$('.file_cancel').on('click',function () {
